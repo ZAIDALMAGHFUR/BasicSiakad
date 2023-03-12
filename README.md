@@ -9,7 +9,7 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/nama_project
+  git clone https://github.com/ZAIDALMAGHFUR/PortalKu
 ```
 
 ```bash
