@@ -2,22 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Jurusan;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class AdminSeeder extends Seeder
+class JurusanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('123'),
-            'is_admin' => true,
+        Jurusan::create([
+            'nama_jurusan' => 'Teknik Informatika',
+            'kode_jurusan' => '001',
         ]);
     }
 }

@@ -17,11 +17,27 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $guards = empty($guards) ? [null] : $guards;
+        // $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+        // foreach ($guards as $guard) {
+        //     if (Auth::guard($guard)->check()) {
+        //         if (Auth::user()->is_admin == 1) {
+        //             return redirect(RouteServiceProvider::HOME);
+        //         }elseif (Auth::user()->is_dosen == 1) {
+        //             return redirect(RouteServiceProvider::DOSEN);
+        //         } elseif (Auth::user()->is_mahasiswa) {
+        //             return redirect(RouteServiceProvider::MAHASISWA);
+        //         }
+        //     }
+        // }
+
+        if (Auth::check()) {
+            if (Auth::user()->is_admin)  {
                 return redirect(RouteServiceProvider::HOME);
+            }elseif (Auth::user()->is_dosen ) {
+                return redirect(RouteServiceProvider::DOSEN);
+            } elseif (Auth::user()->is_mahasiswa) {
+                return redirect(RouteServiceProvider::MAHASISWA);
             }
         }
 
