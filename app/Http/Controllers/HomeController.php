@@ -24,9 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $Users = User::all()->count() - 1;
+        $adminCount = User::where('is_admin', 1)->count();
+        $dosenCount = User::where('is_dosen', 1)->count();
+        $mahasiswaCount = User::where('is_mahasiswa', 1)->count();
+        
+        $totalUsers = $adminCount + $dosenCount + $mahasiswaCount;
+    
         return view('home', [
-            'Users' => $Users
+            'adminCount' => $adminCount,
+            'dosenCount' => $dosenCount,
+            'mahasiswaCount' => $mahasiswaCount,
+            'totalUsers' => $totalUsers
         ]);
     }
 }
