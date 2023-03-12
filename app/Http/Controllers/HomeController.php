@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
+use App\Models\MataKuliah;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,6 +29,9 @@ class HomeController extends Controller
         $adminCount = User::where('is_admin', 1)->count();
         $dosenCount = User::where('is_dosen', 1)->count();
         $mahasiswaCount = User::where('is_mahasiswa', 1)->count();
+
+        $matkul = MataKuliah::all()->count();
+        $fakultas = Jurusan::all()->count();
         
         $totalUsers = $adminCount + $dosenCount + $mahasiswaCount;
     
@@ -34,7 +39,9 @@ class HomeController extends Controller
             'adminCount' => $adminCount,
             'dosenCount' => $dosenCount,
             'mahasiswaCount' => $mahasiswaCount,
-            'totalUsers' => $totalUsers
+            'totalUsers' => $totalUsers,
+            'matkul' => $matkul,
+            'fakultas' => $fakultas,
         ]);
     }
 }
