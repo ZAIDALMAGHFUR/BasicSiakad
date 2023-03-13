@@ -132,6 +132,8 @@ class MahasiswaController extends Controller
     {
         File::delete('storage/'. $mahasiswa->photo);
         $mahasiswa->delete();
+        $user = User::where('id', $mahasiswa->user_id)->first();
+        $user->delete();
 
         return redirect()->back()->with([
             'message' => 'berhasi di hapus !',
