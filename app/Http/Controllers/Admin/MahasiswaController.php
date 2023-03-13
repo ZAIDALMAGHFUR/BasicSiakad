@@ -101,7 +101,7 @@ class MahasiswaController extends Controller
             }
         }
 
-        return redirect()->route('admin.mahasiswa.index')->with([
+        return redirect()->route('mahasiswa.index')->with([
             'message' => 'berhasil di ganti !',
             'alert-type' => 'info'
         ]);

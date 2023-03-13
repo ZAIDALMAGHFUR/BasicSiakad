@@ -55,7 +55,7 @@ class KrsController extends Controller
            'select_krs' => $select_krs
        ];
 
-        return view('krs.show', compact('data_krs'));
+        return view('admin.krs.show', compact('data_krs'));
         // return view('admin.krs.show', compact('data_krs'));
     }
 
@@ -67,8 +67,8 @@ class KrsController extends Controller
         $data_mata_kuliah = MataKuliah::get(['nama_mata_kuliah','id']);
         $tahun_akademik = TahunAkademik::find($tahun_akademik_id);
 
-        return view('krs.create', compact('nim','tahun_akademik', 'data_mata_kuliah'));
-        // return view('admin.krs.create', compact('nim','tahun_akademik', 'data_mata_kuliah'));
+        // return view('krs.create', compact('nim','tahun_akademik', 'data_mata_kuliah'));
+        return view('admin.krs.create', compact('nim','tahun_akademik', 'data_mata_kuliah'));
     }
 
     /**
