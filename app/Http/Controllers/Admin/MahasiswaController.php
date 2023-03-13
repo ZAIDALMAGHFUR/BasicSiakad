@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Imports\UsersImport;
 use App\Models\ProgramStudy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Admin\MahasiswaRequest;
+
 
 class MahasiswaController extends Controller
 {
@@ -107,9 +110,24 @@ class MahasiswaController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+    public function importExcel (Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx'
+        ]);
+
+        $file = $request->file('file');
+
+        Excel::import(new UsersImport, $file);
+
+        return redirect()->back()->with([
+            'message' => 'berhasi di import !',
+            'alert-type' => 'success'
+        ]);
+    }
+
+
     public function destroy(Mahasiswa $mahasiswa)
     {
         File::delete('storage/'. $mahasiswa->photo);

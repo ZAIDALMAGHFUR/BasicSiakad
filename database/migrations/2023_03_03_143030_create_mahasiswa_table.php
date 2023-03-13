@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['laki-laki','perempuan']);
             $table->foreignId('program_study_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->text('photo');
+            $table->text('photo')->nullable();
             $table->timestamps();
         });
     }

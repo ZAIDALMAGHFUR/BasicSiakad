@@ -28,6 +28,9 @@ Auth::routes();
     // dashboard
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    //membuat import data mahasiswa dengan xl
+    Route::post('import_excel', [App\Http\Controllers\Admin\MahasiswaController::class, 'importExcel'])->name('import_excel');
+
     // jurusan crud
     Route::resource('jurusan', \App\Http\Controllers\Admin\JurusanController::class)->except('show');
     Route::resource('program_study', \App\Http\Controllers\Admin\ProgramStudyController::class)->except('show');
