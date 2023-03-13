@@ -24,11 +24,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
-        $adminCount = User::where('is_admin', 1)->count();
-        $dosenCount = User::where('is_dosen', 1)->count();
-        $mahasiswaCount = User::where('is_mahasiswa', 1)->count();
+        $adminCount = User::where('role_id', 1)->count();
+        $dosenCount = User::where('role_id', 2)->count();
+        $mahasiswaCount = User::where('role_id', 3)->count();
 
         $matkul = MataKuliah::all()->count();
         $fakultas = Jurusan::all()->count();

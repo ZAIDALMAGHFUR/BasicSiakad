@@ -36,7 +36,7 @@ class TahunAkademikController extends Controller
     {
         TahunAkademik::create($request->validated());
 
-        return redirect()->route('admin.tahun_akademik.index')->with([
+        return redirect()->route('tahun_akademik.index')->with([
             'message' => 'berhasi di buat !',
             'alert-type' => 'success'
         ]);
@@ -57,7 +57,7 @@ class TahunAkademikController extends Controller
     {
         $tahun_akademik->update($request->validated());
 
-        return redirect()->route('admin.tahun_akademik.index')->with([
+        return redirect()->route('tahun_akademik.index')->with([
             'message' => 'berhasil di ganti !',
             'alert-type' => 'info'
         ]);

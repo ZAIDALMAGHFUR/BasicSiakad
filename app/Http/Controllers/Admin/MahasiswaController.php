@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Mahasiswa;
 use App\Models\ProgramStudy;
 use Illuminate\Http\Request;
@@ -36,14 +37,33 @@ class MahasiswaController extends Controller
      */
     public function store(MahasiswaRequest $request)
     {
+        // dd($request->all());
         if($request->validated()) {
             $photo = $request->file('photo')->store(
                 'mahasiswa/photo', 'public'
             );
-            Mahasiswa::create($request->except('photo') + ['photo' => $photo]);
+            
+            $User = User::create(['name'=> $request->nama_lengkap, 'email' => $request->email, 'password' => bcrypt('Mhs2023'), 'role_id'  =>    3]);
+            
+            $queri = [
+                'nim' => $request->nim,
+                'nama_lengkap' => $request->nama_lengkap,
+                'email' => $request->email,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'alamat' => $request->alamat,
+                'telepon' => $request->telepon,
+                'photo' => $photo,
+                'program_study_id' => $request->program_study_id,
+                'user_id' => $User->id,
+            ];
+
+            $User->mahasiswa()->create($queri);
+
         }
 
-        return redirect()->route('admin.mahasiswa.index')->with([
+        return redirect()->route('mahasiswa.index')->with([
             'message' => 'berhasi di buat !',
             'alert-type' => 'success'
         ]);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +20,13 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::group(['middleware' => ['auth','is_admin'],'prefix' => 'admin', 'as' => 'admin.'], function() {
+
+    Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
 
     // dashboard
-
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     // jurusan crud
     Route::resource('jurusan', \App\Http\Controllers\Admin\JurusanController::class)->except('show');
@@ -55,15 +56,11 @@ Route::group(['middleware' => ['auth','is_admin'],'prefix' => 'admin', 'as' => '
     Route::view('about', 'about')->name('about');
 
     Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+    Route::get('users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+    Route::post('users/store', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
     Route::delete('users/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-
-});
-
-
-Route::group(['middleware' => ['auth','is_dosen'],'prefix' => 'dosen', 'as' => 'dosen.'], function() {
-
 
 });

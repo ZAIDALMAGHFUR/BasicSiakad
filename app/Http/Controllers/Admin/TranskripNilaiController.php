@@ -54,6 +54,7 @@ class TranskripNilaiController extends Controller
             'nama_lengkap' => $mhs->nama_lengkap,
             'prody' => $prody->nama_prody
         ];
-        return view('admin.transkrip_nilai.show', compact('data'));
+        return view('transkrip_nilai.show', compact('data'));
+        // return view('admin.transkrip_nilai.show', compact('data'));
     }
 }

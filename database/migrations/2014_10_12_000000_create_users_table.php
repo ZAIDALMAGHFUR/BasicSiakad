@@ -17,9 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('is_admin')->default(false);
-            $table->boolean('is_dosen')->default(false);
-            $table->boolean('is_mahasiswa')->default(false);
             $table->boolean('blokir')->default(false);
             $table->rememberToken();
             $table->timestamps();

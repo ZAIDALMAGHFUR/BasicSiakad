@@ -37,7 +37,7 @@ class MataKuliahController extends Controller
     {
         MataKuliah::create($request->validated());
 
-        return redirect()->route('admin.mata_kuliah.index')->with([
+        return redirect()->route('mata_kuliah.index')->with([
             'message' => 'berhasi di buat !',
             'alert-type' => 'success'
         ]);
@@ -60,7 +60,7 @@ class MataKuliahController extends Controller
     {
         $mata_kuliah->update($request->validated());
 
-        return redirect()->route('admin.mata_kuliah.index')->with([
+        return redirect()->route('mata_kuliah.index')->with([
             'message' => 'berhasil di ganti !',
             'alert-type' => 'info'
         ]);

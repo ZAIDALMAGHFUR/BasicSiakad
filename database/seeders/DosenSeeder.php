@@ -19,24 +19,8 @@ class DosenSeeder extends Seeder
             'name' => 'dosen',
             'email' => 'dosen@gmail.com',
             'password' => bcrypt('password'),
-            'is_dosen' => true,
+            'role_id' => 2,
         ]);
 
-
-        Dosen::create([
-            'nidn' => '1234567890',
-            'nama' => 'dosen',
-            'email' => 'dosen@gmail.com',
-            'tempat_lahir' => 'Jakarta',
-            'tanggal_lahir' => '1990-01-01',
-            'jenis_kelamin' => 'Laki-laki',
-            'agama' => 'Islam',
-            'alamat' => 'Jl. Jalan',
-            'no_hp' => '081234567890',
-            'foto' => 'default.jpg',
-            'user_id' => '2',
-            'program_study_id' => '1',
-
-        ]);
     }
 }

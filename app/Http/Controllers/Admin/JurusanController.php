@@ -32,9 +32,19 @@ class JurusanController extends Controller
      */
     public function store(JurusanRequest $request)
     {
-        Jurusan::create($request->validated());
+        // Jurusan::create($request->validated());        
 
-        return redirect()->route('admin.jurusan.index')->with([
+        $this->validate($request, [
+            'kode_jurusan' => 'required|unique:jurusan',
+            'nama_jurusan' => 'required|unique:jurusan',
+        ]);
+
+        Jurusan::create([
+            'kode_jurusan' => $request->kode_jurusan,
+            'nama_jurusan' => $request->nama_jurusan,
+        ]);
+
+        return redirect()->route('jurusan.index')->with([
             'message' => 'berhasi di buat !',
             'alert-type' => 'success'
         ]);
@@ -53,9 +63,18 @@ class JurusanController extends Controller
      */
     public function update(JurusanRequest $request, Jurusan $jurusan)
     {
-        $jurusan->update($request->validated());
 
-        return redirect()->route('admin.jurusan.index')->with([
+        $this->validate($request, [
+            'kode_jurusan' => 'required|unique:jurusan',
+            'nama_jurusan' => 'required|unique:jurusan',
+        ]);
+
+        $jurusan->update([
+            'kode_jurusan' => $request->kode_jurusan,
+            'nama_jurusan' => $request->nama_jurusan,
+        ]);
+
+        return redirect()->route('jurusan.index')->with([
             'message' => 'berhasil di ganti !',
             'alert-type' => 'info'
         ]);

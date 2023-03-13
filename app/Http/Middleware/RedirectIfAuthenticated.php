@@ -32,11 +32,11 @@ class RedirectIfAuthenticated
         // }
 
         if (Auth::check()) {
-            if (Auth::user()->is_admin)  {
+            if (Auth::user()->role_id == 1)  {
                 return redirect(RouteServiceProvider::HOME);
-            }elseif (Auth::user()->is_dosen ) {
+            }elseif (Auth::user()->role_id == 2) {
                 return redirect(RouteServiceProvider::DOSEN);
-            } elseif (Auth::user()->is_mahasiswa) {
+            } elseif (Auth::user()->role_id == 3) {
                 return redirect(RouteServiceProvider::MAHASISWA);
             }
         }

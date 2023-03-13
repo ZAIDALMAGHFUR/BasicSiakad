@@ -35,9 +35,20 @@ class ProgramStudyController extends Controller
      */
     public function store(ProgramStudyRequest $request)
     {
-        ProgramStudy::create($request->validated());
 
-        return redirect()->route('admin.program_study.index')->with([
+        $this->validate($request, [
+            'kode_prody' => 'required|unique:program_studies',
+            'nama_prody' => 'required|unique:program_studies',
+            'jurusan_id' => 'required',
+        ]);
+
+        ProgramStudy::create([
+            'kode_prody' => $request->kode_prody,
+            'nama_prody' => $request->nama_prody,
+            'jurusan_id' => $request->jurusan_id,
+        ]);
+
+        return redirect()->route('program_study.index')->with([
             'message' => 'berhasi di buat !',
             'alert-type' => 'success'
         ]);
@@ -48,6 +59,7 @@ class ProgramStudyController extends Controller
      */
     public function edit(ProgramStudy $program_study)
     {
+
         $jurusans = Jurusan::get(['id', 'nama_jurusan']);
 
         return view('admin.program_study.edit', compact('program_study','jurusans'));
@@ -58,9 +70,19 @@ class ProgramStudyController extends Controller
      */
     public function update(ProgramStudyRequest $request, ProgramStudy $program_study)
     {
-        $program_study->update($request->validated());
+        $this->validate($request, [
+            'kode_prody' => 'required|unique:program_studies',
+            'nama_prody' => 'required|unique:program_studies',
+            'jurusan_id' => 'required',
+        ]);
 
-        return redirect()->route('admin.program_study.index')->with([
+        ProgramStudy::create([
+            'kode_prody' => $request->kode_prody,
+            'nama_prody' => $request->nama_prody,
+            'jurusan_id' => $request->jurusan_id,
+        ]);
+
+        return redirect()->route('program_study.index')->with([
             'message' => 'berhasil di ganti !',
             'alert-type' => 'info'
         ]);

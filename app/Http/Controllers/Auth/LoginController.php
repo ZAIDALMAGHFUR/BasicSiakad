@@ -32,11 +32,11 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        if (Auth::user()->is_admin == 1) {
+        if (Auth::user()->role_id == 1) {
             return RouteServiceProvider::HOME;
-        } elseif (Auth::user()->is_dosen == 1) {
+        } elseif (Auth::user()->role_id == 2) {
             return RouteServiceProvider::DOSEN;
-        } elseif (Auth::user()->is_mahasiswa) {
+        } elseif (Auth::user()->role_id == 3) {
             return RouteServiceProvider::MAHASISWA;
         }
     }

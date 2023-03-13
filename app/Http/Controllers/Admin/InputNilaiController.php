@@ -64,7 +64,8 @@ class InputNilaiController extends Controller
                 'sks' => $mata_kuliah->sks
             ];
 
-            return view('admin.input_nilai.show', compact('data'));
+            return view('input_nilai.show', compact('data'));
+            // return view('admin.input_nilai.show', compact('data'));
     }
 
     public function store(Request $request)
@@ -79,6 +80,7 @@ class InputNilaiController extends Controller
 
         $krs = Krs::with('mata_kuliah','tahun_akademik')->find($ids[0]);
         
-        return view('admin.input_nilai.daftar_nilai', compact('krs','ids'));
+        return view('input_nilai.daftar_nilai', compact('krs','ids'));
+        // return view('admin.input_nilai.daftar_nilai', compact('krs','ids'));
     }
 }

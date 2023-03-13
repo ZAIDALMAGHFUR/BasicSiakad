@@ -55,7 +55,8 @@ class KrsController extends Controller
            'select_krs' => $select_krs
        ];
 
-        return view('admin.krs.show', compact('data_krs'));
+        return view('krs.show', compact('data_krs'));
+        // return view('admin.krs.show', compact('data_krs'));
     }
 
     /**
@@ -66,7 +67,8 @@ class KrsController extends Controller
         $data_mata_kuliah = MataKuliah::get(['nama_mata_kuliah','id']);
         $tahun_akademik = TahunAkademik::find($tahun_akademik_id);
 
-        return view('admin.krs.create', compact('nim','tahun_akademik', 'data_mata_kuliah'));
+        return view('krs.create', compact('nim','tahun_akademik', 'data_mata_kuliah'));
+        // return view('admin.krs.create', compact('nim','tahun_akademik', 'data_mata_kuliah'));
     }
 
     /**
@@ -76,10 +78,15 @@ class KrsController extends Controller
     {
         Krs::create($request->validated() + ['nilai' => 0]);
 
-        return redirect()->route('admin.krs.index')->with([
+        return redirect()->route('krs.index')->with([
             'message' => 'berhasi di buat !',
             'alert-type' => 'success'
         ]);
+
+        // return redirect()->route('admin.krs.index')->with([
+        //     'message' => 'berhasi di buat !',
+        //     'alert-type' => 'success'
+        // ]);
     }
 
     /**
@@ -89,7 +96,8 @@ class KrsController extends Controller
     {
         $data_mata_kuliah = MataKuliah::get(['nama_mata_kuliah','id']);
 
-        return view('admin.krs.edit', compact('krs', 'data_mata_kuliah'));
+        return view('krs.edit', compact('krs', 'data_mata_kuliah'));
+        // return view('admin.krs.edit', compact('krs', 'data_mata_kuliah'));
     }
 
     /**
@@ -99,10 +107,15 @@ class KrsController extends Controller
     {
         $krs->update($request->validated() + ['nilai' => 0]);
 
-        return redirect()->route('admin.krs.index')->with([
+        return redirect()->route('krs.index')->with([
             'message' => 'berhasil di ganti !',
             'alert-type' => 'info'
         ]);
+
+        // return redirect()->route('admin.krs.index')->with([
+        //     'message' => 'berhasil di ganti !',
+        //     'alert-type' => 'info'
+        // ]);
     }
 
     /**
