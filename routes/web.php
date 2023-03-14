@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\MahasiswaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,10 @@ Auth::routes();
 
 
 Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
+    
+    // search feature
+    Route::get('mahasiswa/search', [MahasiswaController::class, 'search'])->name('mahasiswa.live_search');
+    Route::get('users/search', [\App\Http\Controllers\UserController::class, 'search'])->name('users.live_search');
 
     // dashboard
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -36,6 +41,7 @@ Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
     Route::resource('program_study', \App\Http\Controllers\Admin\ProgramStudyController::class)->except('show');
     Route::resource('mata_kuliah', \App\Http\Controllers\Admin\MataKuliahController::class)->except('show');
     Route::resource('mahasiswa', \App\Http\Controllers\Admin\MahasiswaController::class);
+    // tahun akademik
     Route::resource('tahun_akademik', \App\Http\Controllers\Admin\TahunAkademikController::class);
     // krs
     Route::get('krs/create/{nim}/{tahun_akademik}', [\App\Http\Controllers\Admin\KrsController::class, 'create'])->name('krs.create');
@@ -62,7 +68,6 @@ Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
     Route::get('users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
     Route::post('users/store', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
     Route::delete('users/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/users/search', [\App\Http\Controllers\UserController::class, 'search'])->name('users.live_search');
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');

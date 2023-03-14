@@ -67,13 +67,21 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-
-        return redirect()->route('users.index')->with([
-            'message' => 'berhasil di hapus !',
-            'alert-type' => 'danger'
-        ]);
+        if ($user::find($user->id)->mahasiswa) {
+            return redirect()->route('users.index')->with([
+                'message' => 'Yang Anda Pilih masih terdaftar sebagai mahasiswa, tidak dapat dihapus !',
+                'alert-type' => 'warning'
+            ]);
+        }
+        else {
+            $user->delete();
+            return redirect()->route('users.index')->with([
+                'message' => 'berhasil di hapus !',
+                'alert-type' => 'danger'
+            ]);
+        }
     }
+    
 
     public function search(Request $request)
     {

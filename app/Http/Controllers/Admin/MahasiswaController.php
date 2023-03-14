@@ -18,13 +18,15 @@ class MahasiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         
-        $data_mahasiswa = Mahasiswa::with('program_study')->paginate(5);
-        // $data_mahasiswa = Mahasiswa::with('program_study')->where('status', '=', 'aktif')->paginate(5);
-
-
+        if ($request->key) {
+            $search = request()->get('key');
+            $data_mahasiswa = Mahasiswa::where('nama_lengkap', 'LIKE', '%' . $search . '%')->paginate(5);
+        } else {
+            $data_mahasiswa = Mahasiswa::with('program_study')->paginate(5);
+        }
 
         return view('admin.mahasiswa.index', compact('data_mahasiswa'));
     }
@@ -144,5 +146,12 @@ class MahasiswaController extends Controller
             'message' => 'berhasi di hapus !',
             'alert-type' => 'danger'
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->get('key');
+        $mhs = Mahasiswa::where('nama_lengkap', 'LIKE', '%' . $search . '%')->paginate(5);
+        return response()->json($mhs);
     }
 }
