@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\User;
+use App\Exports\UsersExport;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -89,5 +91,10 @@ class UserController extends Controller
         $users = User::where('name', 'LIKE', '%' . $search . '%')->where('role_id', '!=', 1 )->paginate(5);
         
         return response()->json($users);
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }

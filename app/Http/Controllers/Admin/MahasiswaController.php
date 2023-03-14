@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\MahasiswaExport;
 use App\Models\User;
 use App\Models\Mahasiswa;
 use App\Imports\UsersImport;
@@ -153,5 +154,10 @@ class MahasiswaController extends Controller
         $search = $request->get('key');
         $mhs = Mahasiswa::where('nama_lengkap', 'LIKE', '%' . $search . '%')->paginate(5);
         return response()->json($mhs);
+    }
+
+    public function export()
+    {
+        return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
     }
 }

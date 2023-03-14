@@ -30,6 +30,10 @@ Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
     Route::get('mahasiswa/search', [MahasiswaController::class, 'search'])->name('mahasiswa.live_search');
     Route::get('users/search', [\App\Http\Controllers\UserController::class, 'search'])->name('users.live_search');
 
+    //membuat export data mahasiswa dengan xl
+    Route::get('users/export/', [\App\Http\Controllers\UserController::class, 'export'])->name('users.export');
+    Route::get('mahasiswa/export/', [MahasiswaController::class, 'export'])->name('mahasiswa.export');
+
     // dashboard
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
