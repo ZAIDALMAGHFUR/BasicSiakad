@@ -20,7 +20,11 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $data_mahasiswa = Mahasiswa::with('program_study')->get();
+        
+        $data_mahasiswa = Mahasiswa::with('program_study')->paginate(5);
+        // $data_mahasiswa = Mahasiswa::with('program_study')->where('status', '=', 'aktif')->paginate(5);
+
+
 
         return view('admin.mahasiswa.index', compact('data_mahasiswa'));
     }
@@ -46,7 +50,7 @@ class MahasiswaController extends Controller
                 'mahasiswa/photo', 'public'
             );
             
-            $User = User::create(['name'=> $request->nama_lengkap, 'email' => $request->email, 'password' => bcrypt('Mhs2023'), 'role_id'  =>    3]);
+            $User = User::create(['name'=> $request->nama_lengkap, 'email' => $request->email, 'password' => bcrypt($request->tanggal_lahir), 'role_id'  =>    3]);
             
             $queri = [
                 'nim' => $request->nim,
@@ -118,6 +122,7 @@ class MahasiswaController extends Controller
         ]);
 
         $file = $request->file('file');
+        
 
         Excel::import(new UsersImport, $file);
 

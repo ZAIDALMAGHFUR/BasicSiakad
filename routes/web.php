@@ -23,7 +23,7 @@ Auth::routes();
 
 
 
-    Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
+Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
 
     // dashboard
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -49,9 +49,9 @@ Auth::routes();
     Route::get('khs', [\App\Http\Controllers\Admin\KhsController::class, 'index'])->name('khs.index');
     Route::post('khs', [\App\Http\Controllers\Admin\KhsController::class, 'find'])->name('khs.find');
     // input nilai
-    Route::get('input_nilai',[\App\Http\Controllers\Admin\InputNilaiController::class, 'index'])->name('input_nilai.index');
-    Route::post('input_nilai',[\App\Http\Controllers\Admin\InputNilaiController::class, 'all'])->name('input_nilai.all');
-    Route::post('input_nilai/store',[\App\Http\Controllers\Admin\InputNilaiController::class, 'store'])->name('input_nilai.store');
+    Route::get('input_nilai', [\App\Http\Controllers\Admin\InputNilaiController::class, 'index'])->name('input_nilai.index');
+    Route::post('input_nilai', [\App\Http\Controllers\Admin\InputNilaiController::class, 'all'])->name('input_nilai.all');
+    Route::post('input_nilai/store', [\App\Http\Controllers\Admin\InputNilaiController::class, 'store'])->name('input_nilai.store');
     // transkrip nilai
     Route::get('transkrip_nilai', [\App\Http\Controllers\Admin\TranskripNilaiController::class, 'index'])->name("transkrip_nilai.index");
     Route::post('transkrip_nilai', [\App\Http\Controllers\Admin\TranskripNilaiController::class, 'find'])->name("transkrip_nilai.find");
@@ -62,8 +62,8 @@ Auth::routes();
     Route::get('users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
     Route::post('users/store', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
     Route::delete('users/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/search', [\App\Http\Controllers\UserController::class, 'search'])->name('users.live_search');
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-
 });

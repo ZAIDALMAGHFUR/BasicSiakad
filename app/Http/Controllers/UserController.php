@@ -8,9 +8,15 @@ use App\Models\Role;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('role_id', '!=', 1 )->paginate(5);
+        if ($request->search) {
+            $search = $request->get('key');
+            $users = User::where('name', 'LIKE', '%' . $request->search . '%')->paginate(10);
+            // dd($users->toArray());
+        } else {
+            $users = User::where('role_id', '!=', 1 )->paginate(5);
+        }
 
         return view('users.index', compact('users'));
     }
@@ -67,5 +73,13 @@ class UserController extends Controller
             'message' => 'berhasil di hapus !',
             'alert-type' => 'danger'
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->get('key');
+        $users = User::where('name', 'LIKE', '%' . $search . '%')->where('role_id', '!=', 1 )->paginate(5);
+        
+        return response()->json($users);
     }
 }

@@ -16,7 +16,8 @@ class KrsController extends Controller
 
     public function index()
     {
-        $data_tahun_akademik = TahunAkademik::select('id', 'semester', DB::raw("CONCAT(tahun_akademik,'/') AS th_akademik"))->get();
+        $data_tahun_akademik = TahunAkademik::all();
+        
         return view('admin.krs.index', compact('data_tahun_akademik'));
     }
     
@@ -42,12 +43,6 @@ class KrsController extends Controller
                 ->select('krs.id', 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.sks')
                 ->get();
 
-    if(count($select_krs) == 0) {
-        return redirect()->back()->with([
-            'message' => 'mahasiswa belum terdaftar pada tahun yang dipilih !',
-            'alert-type' => 'info'
-        ]);
-    }
 
     $tahun_akademik = TahunAkademik::findOrFail($request->tahun_akademik_id);
     $data_krs = [
