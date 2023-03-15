@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\MahasiswaExport;
 use App\Models\User;
 use App\Models\Mahasiswa;
 use App\Imports\UsersImport;
 use App\Models\ProgramStudy;
 use Illuminate\Http\Request;
+use App\Exports\MahasiswaExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\Failure;
 use App\Http\Requests\Admin\MahasiswaRequest;
 
 
@@ -135,6 +136,8 @@ class MahasiswaController extends Controller
         ]);
     }
 
+    
+
 
     public function destroy(Mahasiswa $mahasiswa)
     {
@@ -152,7 +155,10 @@ class MahasiswaController extends Controller
     public function search(Request $request)
     {
         $search = $request->get('key');
-        $mhs = Mahasiswa::where('nama_lengkap', 'LIKE', '%' . $search . '%')->paginate(5);
+        $mhs = Mahasiswa::where('nama_lengkap', 'LIKE', '%' . $search . '%')
+        ->orWhere('nim', 'LIKE', '%' . $search . '%')
+        ->join('program_studies', 'mahasiswa.program_study_id', '=', 'program_studies.id')
+        ->paginate(5);
         return response()->json($mhs);
     }
 
