@@ -54,12 +54,23 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::get(['id', 'name'])->where('id', '!=', 1);
+        return view('users.edit', compact(['user', 'roles']));
     }
 
     public function update(User $user)
     {
-        $user->update(request()->all());
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required',
+            'role_id' => 'required',
+        ]);
+
+        $user->update([
+            'name' => request('name'),
+            'email' => request('email'),
+            'role_id' => request('role_id'),
+        ]);
 
         return redirect()->route('users.index')->with([
             'message' => 'berhasil di update !',
@@ -88,7 +99,9 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $search = $request->get('key');
-        $users = User::where('name', 'LIKE', '%' . $search . '%')->where('role_id', '!=', 1 )->paginate(5);
+        $users = User::where('name', 'LIKE', '%' . $search . '%')->where('role_id', '!=', 1 )
+        // ->join('roles', 'users.role_id', '=', 'roles.id')
+        ->paginate(5);
         
         return response()->json($users);
     }

@@ -70,6 +70,8 @@ Route::group(['middleware' => ['auth', 'OnlyAdmin']], function () {
 
     Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
     Route::get('users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+    Route::get('users/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+    Route::get('users/update', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
     Route::post('users/store', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
     Route::delete('users/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
 
