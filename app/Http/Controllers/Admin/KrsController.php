@@ -86,7 +86,7 @@ class KrsController extends Controller
     {
         $data_mata_kuliah = MataKuliah::get(['nama_mata_kuliah','id']);
 
-        return view('krs.edit', compact('krs', 'data_mata_kuliah'));
+        return view('admin.krs.edit', compact('krs', 'data_mata_kuliah'));
     }
 
 
